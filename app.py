@@ -61,7 +61,7 @@ class PendenciasScheduler:
         self.logger.info("Inicializando agendador para execução diária às 19:39")
         
         schedule.clear()
-        schedule.every().day.at("20:10").do(self.executar_consultas_agendadas)
+        schedule.every().day.at("22:00").do(self.executar_consultas_agendadas)
         
         self.running = True
         self.logger.info("Agendador iniciado com sucesso")
