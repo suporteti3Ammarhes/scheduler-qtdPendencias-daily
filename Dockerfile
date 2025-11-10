@@ -7,13 +7,16 @@ RUN apt-get update && apt-get install -y \
   gnupg \
   unixodbc \
   unixodbc-dev \
+  ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y curl gnupg \
-  && curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/microsoft.gpg \
-  && echo "deb [signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/debian/11/prod stable main" > /etc/apt/sources.list.d/mssql-release.list \
+# Instalar ODBC Driver 18 for SQL Server (compatível com Debian/Ubuntu mais recentes)
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gpg.d/microsoft.asc \
+  && curl https://packages.microsoft.com/config/debian/12/prod.list | tee /etc/apt/sources.list.d/mssql-release.list \
   && apt-get update \
-  && ACCEPT_EULA=Y apt-get install -y msodbcsql17 \
+  && ACCEPT_EULA=Y apt-get install -y msodbcsql18 \
+  && apt-get install -y mssql-tools18 \
+  && echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc \
   && rm -rf /var/lib/apt/lists/*
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
