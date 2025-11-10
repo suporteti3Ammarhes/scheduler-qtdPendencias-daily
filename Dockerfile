@@ -17,8 +17,11 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /u
   && ACCEPT_EULA=Y apt-get install -y mssql-tools18 \
   && echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc \
   && rm -rf /var/lib/apt/lists/*
+
+# Instalar dependências Python
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel \
+  && pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
