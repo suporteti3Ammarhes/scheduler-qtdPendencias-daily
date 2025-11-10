@@ -11,7 +11,7 @@ DATABASE_CONFIG: Dict[str, Any] = {
     'database': os.getenv('DB_DATABASE', 'agenda'),
     'username': os.getenv('DB_USERNAME', 'agenda'),
     'password': os.getenv('DB_PASSWORD', 'kFN2IEqOupim0KieNDDmbqD'),
-    'driver': os.getenv('DB_DRIVER', '{ODBC Driver 17 for SQL Server}'),
+    'driver': os.getenv('DB_DRIVER', '{ODBC Driver 18 for SQL Server}'),
     'port': int(os.getenv('DB_PORT', '1433')),
     'timeout': int(os.getenv('DB_TIMEOUT', '30'))
 }

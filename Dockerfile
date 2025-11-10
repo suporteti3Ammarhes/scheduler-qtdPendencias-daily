@@ -27,4 +27,7 @@ COPY . .
 
 RUN mkdir -p logs
 
+# Definir variável de ambiente para usar ODBC Driver 18
+ENV DB_DRIVER="{ODBC Driver 18 for SQL Server}"
+
 CMD ["python", "app.py"]

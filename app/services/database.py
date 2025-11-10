@@ -9,14 +9,15 @@ from contextlib import contextmanager
 try:
     from config.settings import DATABASE_CONFIG
 except ImportError:
+    import os
     DATABASE_CONFIG = {
-        'server': 'agendatenicabr.database.windows.net',
-        'database': 'agenda',
-        'username': 'agenda',
-        'password': 'kFN2IEqOupim0KieNDDmbqD',
-        'driver': '{ODBC Driver 17 for SQL Server}',
-        'port': 1433,
-        'timeout': 30
+        'server': os.getenv('DB_SERVER'),
+        'database': os.getenv('DB_DATABASE'),
+        'username': os.getenv('DB_USERNAME'),
+        'password': os.getenv('DB_PASSWORD'),
+        'driver': os.getenv('DB_DRIVER', '{ODBC Driver 18 for SQL Server}'),
+        'port': int(os.getenv('DB_PORT', '1433')),
+        'timeout': int(os.getenv('DB_TIMEOUT', '30'))
     }
 
 
