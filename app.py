@@ -58,10 +58,11 @@ class PendenciasScheduler:
             return False
     
     def iniciar_scheduler(self):
-        self.logger.info("Inicializando agendador para execução diária às 19:39")
+        self.logger.info("Inicializando agendador para execução a cada 20 minutos")
         
         schedule.clear()
-        schedule.every().day.at("22:00").do(self.executar_consultas_agendadas)
+        schedule.every(20).minutes.do(self.executar_consultas_agendadas)
+
         
         self.running = True
         self.logger.info("Agendador iniciado com sucesso")
