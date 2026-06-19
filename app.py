@@ -61,7 +61,10 @@ class PendenciasScheduler:
         self.logger.info("Inicializando agendador para execução a cada 20 minutos")
         
         schedule.clear()
-       
+        # Executar todo dia as 17:20 // rayanne para poder enviar as pendências ao sr. alexandre final do dia.
+        schedule.every().day.at("20:20").do(self.executar_consultas_agendadas)
+
+        # 22 é igual a 19 ( hostinger 3 horas a mais)
         schedule.every().day.at("22:00").do(self.executar_consultas_agendadas)
         
         self.running = True
